@@ -7,15 +7,28 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import fr.deginamic.persistence.Article;
+
 public class TestJPA {
 
 	public static void main(String[] args) {
 
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("toto");
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("compta-jpa");
 		EntityManager em = entityManagerFactory.createEntityManager();
 
+		// 1ère Requet
+		Article a = em.find(Article.class, 1);
+		System.out.println("**********************************FIST ARTICLE**********************************");
+		System.out.println(a);
 		
-		 Query query = em.createNativeQuery("SELECT * FROM PIZZA");
+		// 2nd Requet
+		Article a2 = (Article) em.createQuery("select a from Article a where a.mReference='D04'").getResultList().get(0);
+		System.out.println("**********************************SECOND ARTICLE**********************************");
+
+		System.out.println(a2);
+		
+		
+		/* Query query = em.createNativeQuery("SELECT * FROM PIZZA");
 		 
 		  List<Object[]> rows = query.getResultList();
 		  for (Object[] row : rows) {
@@ -24,7 +37,7 @@ public class TestJPA {
 			  }
 		  
 		  }
-		 
+		 */
 		
 		em.close();
 		entityManagerFactory.close();
