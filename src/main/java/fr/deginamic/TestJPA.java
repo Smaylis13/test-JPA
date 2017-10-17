@@ -22,7 +22,10 @@ public class TestJPA {
 		System.out.println(a);
 		
 		// 2nd Requet
-		Article a2 = (Article) em.createQuery("select a from Article a where a.mReference='D04'").getResultList().get(0);
+		Query query = em.createQuery("select a from Article a where a.mReference=:ref");
+		query.setParameter("ref", "A01");
+		Article a2 = (Article) query.getResultList().get(0);
+		
 		System.out.println("**********************************SECOND ARTICLE**********************************");
 
 		System.out.println(a2);
